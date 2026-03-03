@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Verify OTP</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.container {
+    background: #ffffff;
+    padding: 40px 35px;
+    width: 380px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+p.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 4px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102,126,234,0.4);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+#msg {
+    margin-top: 15px;
+    font-weight: 500;
+    color: red;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Verify OTP</h2>
+<p class="subtitle">Enter the OTP sent to your registered email</p>
+
+<input type="text" id="otp" placeholder="Enter OTP" maxlength="6">
+<button onclick="verifyOtp()">Verify</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+function verifyOtp() {
+
+let email = localStorage.getItem("email");
+
+if (!email) {
+document.getElementById("msg").innerHTML = "Session expired. Please register again.";
+return;
+}
+
+let data = {
+email: email,
+otp: document.getElementById("otp").value
+};
+
+fetch("http://localhost:9012/api/users/verify", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+})
+.then(res => {
+if (!res.ok) {
+throw new Error("Invalid OTP");
+}
+return res.json();
+})
+.then(response => {
+
+alert("Registration Successful! Your Username: " + response.username);
+
+localStorage.removeItem("email");
+window.location.href = "login.html";
+
+})
+.catch(error => {
+document.getElementById("msg").innerHTML = "Invalid OTP. Please try again.";
+});
+
+}
+
+</script>
+
+</body>
+</html>

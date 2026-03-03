@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Registration</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Center section */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: #ffffff;
+    padding: 40px 35px;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    cursor: pointer;
+}
+
+#msg {
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header"></div>
+
+<!-- CENTERED FORM -->
+<div class="main-content">
+    <div class="container">
+
+        <h2>User Registration</h2>
+
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <input type="text" id="middleName" placeholder="Middle Name">
+        <input type="text" id="lastName" placeholder="Last Name" required>
+        <input type="date" id="dob" required>
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="password" id="password" placeholder="Password" required>
+
+        <button onclick="register()">Submit</button>
+
+        <p id="msg"></p>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script>
+function register() {
+
+let user = {
+firstName: document.getElementById("firstName").value,
+middleName: document.getElementById("middleName").value,
+lastName: document.getElementById("lastName").value,
+dob: document.getElementById("dob").value,
+phone: document.getElementById("phone").value,
+email: document.getElementById("email").value,
+address: document.getElementById("address").value,
+password: document.getElementById("password").value
+};
+
+fetch("http://localhost:9012/api/users/register", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify(user)
+})
+.then(res => res.text())
+.then(data => {
+document.getElementById("msg").innerHTML = data;
+
+if (data.includes("OTP sent")) {
+localStorage.setItem("email", user.email);
+window.location.href = "otpVerification.html";
+}
+})
+.catch(error => {
+document.getElementById("msg").innerHTML = "Error occurred!";
+});
+}
+</script>
+
+<script>
+fetch("header.html")
+.then(res => res.text())
+.then(data => document.getElementById("header").innerHTML = data);
+
+fetch("footer.html")
+.then(res => res.text())
+.then(data => document.getElementById("footer").innerHTML = data);
+</script>
+
+</body>
+</html>
