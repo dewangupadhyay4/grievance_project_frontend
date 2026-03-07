@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OTP Verification</title>
+
+<style>
+
+body{
+font-family: Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#f5f5f5;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+}
+
+input{
+padding:10px;
+margin:10px;
+width:200px;
+}
+
+button{
+padding:10px 20px;
+background:green;
+color:white;
+border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Enter OTP</h2>
+
+<input type="text" id="otp" placeholder="Enter OTP">
+
+<br>
+
+<button onclick="verify()">Verify OTP</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+function verify(){
+
+let email=localStorage.getItem("authorityEmail");
+let otp=document.getElementById("otp").value;
+
+fetch("http://localhost:9012/api/auth/verify-otp?email="+email+"&otp="+otp,{
+method:"POST"
+})
+.then(res=>res.text())
+.then(token=>{
+
+localStorage.setItem("token",token);
+
+window.location.href="update-grievance.html";
+
+})
+
+}
+
+</script>
+
+</body>
+</html>

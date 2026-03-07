@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Update Grievance</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+width:350px;
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#764ba2;
+color:white;
+border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Update Grievance</h2>
+
+<input type="text" id="ticketNumber" placeholder="Ticket Number">
+
+<select id="status">
+
+<option value="PENDING">PENDING</option>
+<option value="IN_PROGRESS">IN_PROGRESS</option>
+<option value="RESOLVED">RESOLVED</option>
+
+</select>
+
+<textarea id="remark" placeholder="Authority Remark"></textarea>
+
+<button onclick="update()">Update</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+function update(){
+
+let ticketNumber=document.getElementById("ticketNumber").value;
+let status=document.getElementById("status").value;
+let remark=document.getElementById("remark").value;
+
+let email=localStorage.getItem("authorityEmail");
+
+fetch("http://localhost:9012/api/authority/update?email="+email,{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+ticketNumber:ticketNumber,
+status:status,
+authorityRemark:remark
+
+})
+
+})
+.then(res=>res.text())
+.then(data=>{
+
+document.getElementById("msg").innerText=data;
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
