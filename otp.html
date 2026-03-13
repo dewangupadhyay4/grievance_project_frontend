@@ -60,7 +60,7 @@ function verify(){
 let email=localStorage.getItem("authorityEmail");
 let otp=document.getElementById("otp").value;
 
-fetch("http://localhost:9012/api/auth/verify-otp?email="+email+"&otp="+otp,{
+fetch("https://grievance-project-qx7a.onrender.com/api/authority/login/verify-otp"+email+"&otp="+otp,{
 method:"POST"
 })
 .then(res=>res.text())

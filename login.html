@@ -136,7 +136,7 @@ username: document.getElementById("username").value,
 password: document.getElementById("password").value
 };
 
-fetch("http://localhost:9012/api/auth/login/password", {
+fetch("https://grievance-project-qx7a.onrender.com/api/auth/login/password", {
 method: "POST",
 headers: { "Content-Type": "application/json" },
 body: JSON.stringify(data)

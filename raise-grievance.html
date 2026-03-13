@@ -267,7 +267,7 @@ function raiseGrievance() {
     issueType: document.getElementById("issueType").value
   };
 
-  fetch("http://localhost:9012/api/grievances/raise", {
+  fetch("https://grievance-project-qx7a.onrender.com/api/grievances/raise", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

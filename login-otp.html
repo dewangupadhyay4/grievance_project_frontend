@@ -130,7 +130,7 @@ username: username,
 otp: document.getElementById("otp").value
 };
 
-fetch("http://localhost:9012/api/auth/login/verify-otp", {
+fetch("https://grievance-project-qx7a.onrender.com/api/auth/login/verify-otp", {
 method: "POST",
 headers: { "Content-Type": "application/json" },
 body: JSON.stringify(data)

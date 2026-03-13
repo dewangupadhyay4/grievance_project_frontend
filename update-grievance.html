@@ -72,7 +72,7 @@ let remark=document.getElementById("remark").value;
 
 let email=localStorage.getItem("authorityEmail");
 
-fetch("http://localhost:9012/api/authority/update?email="+email,{
+fetch("https://grievance-project-qx7a.onrender.com/api/authority/update"+email,{
 
 method:"PUT",
 
