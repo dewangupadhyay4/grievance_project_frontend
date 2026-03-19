@@ -1,65 +1,150 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Registration</title>
+<title>Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    flex-direction: column;
-}
-
-/* Center section */
-.main-content {
-    flex: 1;
+    background: linear-gradient(-45deg, #667eea, #764ba2, #6a11cb, #2575fc);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Card */
 .container {
-    background: #ffffff;
-    padding: 40px 35px;
-    width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    text-align: center;
+    width: 380px;
+    padding: 35px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    color: white;
+    animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h2 {
+    text-align: center;
     margin-bottom: 25px;
-    color: #333;
 }
 
-input {
-    width: 100%;
-    padding: 12px 15px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+/* Input */
+.input-group {
+    position: relative;
+    margin: 18px 0;
 }
 
-button {
+.input-group input {
     width: 100%;
-    padding: 12px;
-    margin-top: 15px;
+    padding: 12px 40px 12px 12px;
+    border-radius: 10px;
     border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    outline: none;
+    background: rgba(255,255,255,0.2);
     color: white;
+}
+
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    font-size: 14px;
+    color: #ddd;
+    transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    font-size: 11px;
+    color: #fff;
+}
+
+/* Icon */
+.input-group span {
+    position: absolute;
+    right: 12px;
+    top: 12px;
     cursor: pointer;
 }
 
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Loader */
+.loader {
+    border: 3px solid transparent;
+    border-top: 3px solid white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Success animation */
+.success {
+    color: #00ffae;
+    font-weight: bold;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+    0% {transform: scale(0.5); opacity: 0;}
+    100% {transform: scale(1); opacity: 1;}
+}
+
 #msg {
+    text-align: center;
     margin-top: 15px;
 }
 </style>
@@ -67,36 +152,66 @@ button {
 
 <body>
 
-<!-- HEADER -->
-<div id="header"></div>
+<div class="container">
+    <h2>🚀 Create Account</h2>
 
-<!-- CENTERED FORM -->
-<div class="main-content">
-    <div class="container">
-
-        <h2>User Registration</h2>
-
-        <input type="text" id="firstName" placeholder="First Name" required>
-        <input type="text" id="middleName" placeholder="Middle Name">
-        <input type="text" id="lastName" placeholder="Last Name" required>
-        <input type="date" id="dob" required>
-        <input type="text" id="phone" placeholder="Phone Number" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="text" id="address" placeholder="Address" required>
-        <input type="password" id="password" placeholder="Password" required>
-
-        <button onclick="register()">Submit</button>
-
-        <p id="msg"></p>
-
+    <div class="input-group">
+        <input type="text" id="firstName" required>
+        <label>First Name</label>
     </div>
+
+    <div class="input-group">
+        <input type="text" id="middleName">
+        <label>Middle Name</label>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="lastName" required>
+        <label>Last Name</label>
+    </div>
+
+    <div class="input-group">
+        <input type="date" id="dob" required>
+        <label>DOB</label>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="phone" required>
+        <label>Phone</label>
+    </div>
+
+    <div class="input-group">
+        <input type="email" id="email" required>
+        <label>Email</label>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="address" required>
+        <label>Address</label>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="password" required>
+        <label>Password</label>
+        <span onclick="togglePassword()">👁️</span>
+    </div>
+
+    <button onclick="register()" id="btn">Register</button>
+
+    <p id="msg"></p>
 </div>
 
-<!-- FOOTER -->
-<div id="footer"></div>
-
 <script>
+function togglePassword() {
+    let pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+
 function register() {
+
+let btn = document.getElementById("btn");
+btn.innerHTML = '<span class="loader"></span>';
+btn.disabled = true;
 
 let user = {
 firstName: document.getElementById("firstName").value,
@@ -116,27 +231,32 @@ body: JSON.stringify(user)
 })
 .then(res => res.text())
 .then(data => {
-document.getElementById("msg").innerHTML = data;
+
+let msg = document.getElementById("msg");
 
 if (data.includes("OTP sent")) {
+msg.innerHTML = "✅ OTP Sent Successfully!";
+msg.className = "success";
+
+setTimeout(() => {
 localStorage.setItem("email", user.email);
 window.location.href = "otpVerification.html";
+}, 1200);
+
+} else {
+msg.innerHTML = data;
 }
+
+btn.innerHTML = "Register";
+btn.disabled = false;
+
 })
 .catch(error => {
-document.getElementById("msg").innerHTML = "Error occurred!";
+document.getElementById("msg").innerHTML = "❌ Something went wrong";
+btn.innerHTML = "Register";
+btn.disabled = false;
 });
 }
-</script>
-
-<script>
-fetch("header.html")
-.then(res => res.text())
-.then(data => document.getElementById("header").innerHTML = data);
-
-fetch("footer.html")
-.then(res => res.text())
-.then(data => document.getElementById("footer").innerHTML = data);
 </script>
 
 </body>
