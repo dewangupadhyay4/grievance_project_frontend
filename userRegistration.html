@@ -13,34 +13,32 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Background */
+/* 🔥 FIXED BACKGROUND (image + gradient together) */
 body {
     min-height: 100vh;
-    background: url('https://images.unsplash.com/photo-1581093588401-22d1b23b6f7b') no-repeat center/cover;
+    background: 
+        linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)),
+        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80');
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Dark overlay */
-body::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.65);
-}
-
-/* Particles */
+/* ✨ Particles (kept but lighter) */
 body::after {
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
     background-image: radial-gradient(white 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.1;
-    animation: move 20s linear infinite;
+    background-size: 50px 50px;
+    opacity: 0.05;
+    animation: move 25s linear infinite;
 }
 
 @keyframes move {
@@ -48,17 +46,21 @@ body::after {
     to { transform: translateY(-100px); }
 }
 
-/* Card */
+/* 💎 Card */
 .container {
     position: relative;
     z-index: 1;
     width: 380px;
     padding: 35px;
     border-radius: 20px;
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.1);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+
+    backdrop-filter: blur(18px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
     color: white;
+
     animation: fadeUp 0.8s ease;
 }
 
