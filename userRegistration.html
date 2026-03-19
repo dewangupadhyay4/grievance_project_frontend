@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Register</title>
+<title>Grievance Portal - Register</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -12,54 +13,75 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Background */
 body {
     min-height: 100vh;
-    background: linear-gradient(-45deg, #667eea, #764ba2, #6a11cb, #2575fc);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    background: url('https://images.unsplash.com/photo-1581093588401-22d1b23b6f7b') no-repeat center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-@keyframes gradient {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+/* Dark overlay */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+}
+
+/* Particles */
+body::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.1;
+    animation: move 20s linear infinite;
+}
+
+@keyframes move {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100px); }
 }
 
 /* Card */
 .container {
+    position: relative;
+    z-index: 1;
     width: 380px;
     padding: 35px;
     border-radius: 20px;
     backdrop-filter: blur(20px);
     background: rgba(255,255,255,0.1);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
     color: white;
     animation: fadeUp 0.8s ease;
 }
 
 @keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 25px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 20px;
 }
 
 /* Input */
 .input-group {
     position: relative;
-    margin: 18px 0;
+    margin: 15px 0;
 }
 
 .input-group input {
@@ -76,7 +98,7 @@ h2 {
     position: absolute;
     left: 12px;
     top: 12px;
-    font-size: 14px;
+    font-size: 13px;
     color: #ddd;
     transition: 0.3s;
 }
@@ -88,7 +110,7 @@ h2 {
     color: #fff;
 }
 
-/* Icon */
+/* Eye icon */
 .input-group span {
     position: absolute;
     right: 12px;
@@ -108,12 +130,10 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
-    position: relative;
 }
 
 button:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 /* Loader */
@@ -131,16 +151,16 @@ button:hover {
     100% { transform: rotate(360deg); }
 }
 
-/* Success animation */
+/* Success */
 .success {
     color: #00ffae;
     font-weight: bold;
-    animation: pop 0.5s ease;
+    animation: pop 0.4s ease;
 }
 
 @keyframes pop {
-    0% {transform: scale(0.5); opacity: 0;}
-    100% {transform: scale(1); opacity: 1;}
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
 }
 
 #msg {
@@ -153,7 +173,8 @@ button:hover {
 <body>
 
 <div class="container">
-    <h2>🚀 Create Account</h2>
+    <h2>📢 Grievance Portal</h2>
+    <p class="subtitle">Raise your voice. We’ll resolve it.</p>
 
     <div class="input-group">
         <input type="text" id="firstName" required>
@@ -252,7 +273,7 @@ btn.disabled = false;
 
 })
 .catch(error => {
-document.getElementById("msg").innerHTML = "❌ Something went wrong";
+document.getElementById("msg").innerHTML = "❌ Error occurred";
 btn.innerHTML = "Register";
 btn.disabled = false;
 });
